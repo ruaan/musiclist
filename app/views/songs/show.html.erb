@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<section id="song">  
+ </section>
+<p>
+  <strong>Album:</strong>
+  <%= @song.album_id %>
+</p>
+
+<p>
+  <strong>Songname:</strong>
+  <%= @song.songName %>
+</p>
+
+<p>
+  <strong>Songurl:</strong>
+ <%= link_to "Play", @song.songUrl, :class => "play_song" %>
+</p>
+<script>
+$(document).ready(function() {  
+     var audioSection = $('section#song');  
+     $('a.play_song').click(function() {  
+
+     var audio = $('<audio>', {  
+         controls : 'controls'  
+     });  
+
+     var url = $(this).attr('href');  
+     $('<source>').attr('src', url).appendTo(audio);  
+     audioSection.html(audio);  
+     return false;       });  
+ }); 
+</script>
+<%= link_to 'Edit', edit_song_path(@song) %> |
+<%= link_to 'Back', songs_path %>

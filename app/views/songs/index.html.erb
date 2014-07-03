@@ -1,0 +1,54 @@
+<h1>Listing songs</h1>
+<%= form_tag songs_path, :method => 'get' do %>
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<section id="song"></section>
+
+<table>
+  <thead>
+    <tr>
+	<th><%= sortable "album_id" %></th>
+	<th><%= sortable "songName" %></th>
+	<th><%= sortable "songUrl" %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @songs.each do |song| %>
+      <tr>
+        <td><%= song.album_id %></td>
+        <td><%= song.songName %></td>
+        <td><%= link_to "Play", song.songUrl, :class => "play_song" %></td>
+        <td><%= link_to 'Show', song %></td>
+        <td><%= link_to 'Edit', edit_song_path(song) %></td>
+        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @songs %>
+<br>
+<script>
+$(document).ready(function() {  
+     var audioSection = $('section#song');  
+     $('a.play_song').click(function() {  
+
+     var audio = $('<audio>', {  
+         controls : 'controls'  
+     });  
+
+     var url = $(this).attr('href');  
+     $('<source>').attr('src', url).appendTo(audio);  
+     audioSection.html(audio);  
+     return false;       });  
+ }); 
+</script>
+<%= link_to 'New Song', new_song_path %>
