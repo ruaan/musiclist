@@ -1,4 +1,5 @@
 Musiclist::Application.routes.draw do
+  get "show/index"
   resources :songs
 
   resources :albums

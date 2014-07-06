@@ -1,4 +1,7 @@
-<h1>Listing albums</h1>
+<div data-role="header">
+  <h1>Listing albums</h1>
+</div>
+
 <%= form_tag albums_path, :method => 'get' do %>
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
@@ -7,39 +10,46 @@
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
+<ul data-role="listview">
 
-<table>
-  <thead>
-    <tr>
-	<th><%= sortable "albumCover_url" %></th>
-      <th><%= sortable "artistName" %></th>
-      <th><%= sortable "albumName" %></th>
-      <th><%= sortable "genre" %></th>
-      <th><%= sortable "releaseDate" %></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @albums.each do |album| %>
-      <tr>
-		   <td><%= image_tag(album.albumCover_url, :width => 100) if album.albumCover.present? %></td>
-        <td><%= album.artistName %></td>
-        <td><%= album.albumName %></td>
-       
-        <td><%= album.genre %></td>
-        <td><%= album.releaseDate %></td>
-        <td><%= link_to 'Show', album %></td>
-        <td><%= link_to 'Edit', edit_album_path(album) %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-   
-  </tbody>
+    <li>
+		<table>
+			<tr>
+	  <td style="width:27%"><%= sortable "albumCover_url" %></td>
+      <td style="width:20%"><%= sortable "artistName" %></td>
+      <td style="width:20%"><%= sortable "albumName" %></td>
+      <td style="width:20%"><%= sortable "genre" %></td>
+      <td style="width:20%"><%= sortable "releaseDate" %></td>
+  </tr>
 </table>
-<%= will_paginate @albums %>
-<br>
+    </li>
+  </ul>
+<ul data-role="listview">
 
-<%= link_to 'New Album', new_album_path %>
+    <% @albums.each do |album| %>
+      
+		   <li>
+	   		<table>
+	   			<tr>
+	   	  <td style="width:27%">  <%= image_tag(album.albumCover_url, :width => 100) if album.albumCover.present? %></td>
+       <td style="width:20%"> <%= album.artistName %></td>
+       <td style="width:20%"><%= album.albumName %></td>
+       
+        <td style="width:20%"><%= album.genre %></td>
+        <td style="width:20%"><%= album.releaseDate %></td>
+	</tr>
+</table>
+     </li>
+       
+    <% end %>
+	<%= will_paginate @albums %>
+	<br>
+	<%= link_to 'New Album', new_album_path %>
+    </ul>
+   </div>
+   
+
+
+
+
+

@@ -1,4 +1,8 @@
-<h1>Listing songs</h1>
+
+<div data-role="header">
+  <h1>Listing songs</h1>
+</div>
+
 <%= form_tag songs_path, :method => 'get' do %>
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
@@ -8,32 +12,35 @@
   </p>
 <% end %>
 <section id="song"></section>
+<ul data-role="listview">
 
-<table>
-  <thead>
+    <li>
+		<table>
     <tr>
-	<th><%= sortable "album_id" %></th>
-	<th><%= sortable "songName" %></th>
-	<th><%= sortable "songUrl" %></th>
-      <th></th>
-      <th></th>
-      <th></th>
+	 <td style="width:33%"><%= sortable "album_id" %></td>
+	 <td style="width:33%"><%= sortable "songName" %></td>
+	 <td style="width:33%"><%= sortable "songUrl" %></td>
+  
     </tr>
-  </thead>
-
-  <tbody>
-    <% @songs.each do |song| %>
-      <tr>
-        <td><%= song.album_id %></td>
-        <td><%= song.songName %></td>
-        <td><%= link_to "Play", song.songUrl, :class => "play_song" %></td>
-        <td><%= link_to 'Show', song %></td>
-        <td><%= link_to 'Edit', edit_song_path(song) %></td>
-        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
 </table>
+</li>
+</ul>
+<ul data-role="listview">
+    <% @songs.each do |song| %>
+	<li>
+		<table>
+      <tr>
+		
+        <td style="width:33%"><%= song.album_id %></td>
+        <td style="width:33%"><%= song.songName %></td>
+        <td style="width:33%"><%= link_to "Play", song.songUrl, :class => "play_song" %></td>
+        
+      </tr>
+ 
+</table>
+</li>
+   <% end %>
+</ul>
 <%= will_paginate @songs %>
 <br>
 <script>

@@ -1,0 +1,54 @@
+<div data-role="header">
+  <h1>Listing songs</h1>
+</div>
+
+<%= form_tag songs_path, :method => 'get' do %>
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<section id="song"></section>
+<ul data-role="listview">
+
+    <li>
+		<table>
+    <tr>
+    <th>Album cover</th>
+  <th>Artist name</th>
+  <th>Album name</th>
+  <th>Genre</th>
+  <th>Releasedate</th>
+  <th>album id</th>
+  <th>Song Name</th>
+  <th>play song</th>
+
+    </tr>
+</table>
+</li>
+</ul>
+<ul data-role="listview">
+   
+      <% @songs.each do |song| %>
+  	<li>
+  		<table>
+        <tr>
+   		  
+   	   	  <td style="width:20%">  <%= image_tag(song.album.albumCover_url, :width => 100) %></td>
+          <td style="width:10%"> <%= song.album.artistName %></td>
+          <td style="width:10%"><%= song.album.albumName %></td>
+       
+           <td style="width:10%"><%= song.album.genre %></td>
+           <td style="width:10%"><%= song.album.releaseDate %></td>
+           <td style="width:10%"><%= song.album_id %></td>
+           <td style="width:10%"><%= song.songName %></td>
+           <td style="width:10%"><%= link_to "Play", song.songUrl, :class => "play_song" %></td>
+   	</tr>
+   </table>
+        </li>
+        <% end %>
+	<%= will_paginate @songs %>
+	  <br>
+</ul>

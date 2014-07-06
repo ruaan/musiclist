@@ -6,7 +6,9 @@ class SongsController < ApplicationController
   def index
      @songs = Song.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
   end
-
+  def artistName
+     
+    end
   # GET /songs/1
   # GET /songs/1.json
   def show
