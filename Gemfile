@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
-#group :production do
-#  gem 'pg'
-#end
+group :production do
+  gem 'pg'
+end
 
 group :development do
  gem 'sqlite3' 
@@ -50,4 +50,4 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-# gem 'rails_12factor', group: :production
+gem 'rails_12factor', group: :production
